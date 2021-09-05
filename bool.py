@@ -63,7 +63,7 @@ def simplificar(variables, salidas_1, no_importan=[]):
 
 
 Opcion = input(
-    "Selecciona una opción: \n 1 - Evaluar una expresión con tabla de verdad\n 2 - Simplificar una expresión con mapa de Karnaugh\n 3 - Conversión\n 4 - Hamming\n")
+    "\n 🟢 🟢 🟢 🟢  SELECCIONE UNA OPCIÓN  🟢 🟢 🟢 🟢 \n\n1️⃣  Evaluar una expresión con tabla de verdad\n2️⃣  Simplificar una expresión con mapa de Karnaugh\n3️⃣  Conversión\n4️⃣  Hamming\n")
 if Opcion == '1':
     print("Inserte las variables que se utilizaran Ej(ABC): ", end="")
     variables = input()
@@ -103,5 +103,16 @@ elif Opcion == '3':
         conversion(BinaryIN)
         correct = True
 elif Opcion == '4':
-    mensaje = input("Inserte el mensaje a traducir: ")
-    hamming.hamming(mensaje)
+
+    choice = input(
+        " ⭕ ⭕ ⭕ ⭕  SELECCIONE UNA OPCIÓN  ⭕ ⭕ ⭕ ⭕\n\n1️⃣  Traducir un mensaje a Hamming\n2️⃣  Corregir un mensaje Hamming\n")
+    if choice == "1":
+        mensaje = input("📝 Inserte el mensaje a traducir: ")
+        hamming.hamming(mensaje)
+    elif choice == "2":
+        mensaje = input("📝 Inserte el mensaje: ")
+        mensaje = hamming.get_hamming(mensaje)
+        codigo1 = mensaje[1]
+        codigo2 = hamming.hamming(mensaje[0])[1]
+        error = hamming.comparador(codigo1, codigo2)
+        correcto = hamming.corrector(mensaje[2], error)

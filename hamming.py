@@ -79,7 +79,80 @@ def hamming(mensaje):
         hamm = hamm + x
 
     print(f"Mensaje: \t{mensaje}\nCodigo: \t{code}\nHamming: \t{hamm}")
+    return mensaje, code, hamm
+
+
+def get_hamming(hamming):
+    # Función que toma como parametro un mensaje codificado y devuelve el mensaje corregido
+    hamming = hamming
+    codigo = ''
+    mensaje = ''
+    count = 1
+    pos_potencia = 1
+    pos = 1
+    for x in hamming:
+        #print(pos, "---", pos_potencia)
+        if pos == pos_potencia:
+            pos_potencia = 2**count
+            count += 1
+            codigo = codigo + x
+        else:
+            mensaje = mensaje + x
+        # print(x)
+        pos += 1
+    # print(hamming)
+    # print(f"{codigo}---{mensaje}")
+    return mensaje, codigo, hamming
+
+
+def comparador(codigo1, codigo2):
+    # Función que compara los codigos hamming.
+    count = 0
+    binario = []
+    for x in codigo1:
+
+        if x == codigo2[count]:
+            binario.append('0')
+        else:
+            binario.append('1')
+        count += 1
+    # print(binario)
+    num_bin = ''
+    count = 0
+    dec = 0
+    for x in binario:
+        if x == '1':
+            dec = (2 ** count) + dec
+        count += 1
+    if dec == 1:
+        print("No existe error")
+    else:
+        print(f"Error en la posición '{dec}' ⚠")
+        return dec
+
+
+def corrector(mensaje, indice):
+    mensaje = mensaje
+    hamming = []
+    for x in mensaje:
+        hamming.append(x)
+    for x in range(0, len(hamming)):
+        if x+1 == indice:
+            if hamming[x] == "1":
+                hamming[x] = "0"
+            else:
+                hamming[x] = "1"
+    mensaje = ''
+    for x in hamming:
+        mensaje = mensaje + x
+    print(f"Mensaje corregido: {mensaje} ✔ ")
+    return mensaje
 
 
 if __name__ == "__main__":
-    hamming('1011100110011')
+    # hamming('0110')
+    mensaje = get_hamming("1100100")
+    codigo1 = mensaje[1]
+    codigo2 = hamming(mensaje[0])[1]
+    error = comparador(codigo1, codigo2)
+    correcto = corrector(mensaje[2], error)
